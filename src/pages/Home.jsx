@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
@@ -63,6 +64,7 @@ export const Home = () => {
         setErrorMessage(`タスクの取得に失敗しました。${err}`);
       });
   };
+
   return (
     <div>
       <Header />
@@ -125,6 +127,15 @@ export const Home = () => {
 // 表示するタスク
 const Tasks = (props) => {
   const { tasks, selectListId, isDoneDisplay } = props;
+
+  const getLimitDaysFromToday = (date) => {
+    const targetDate = dayjs(date);
+    const todayDate = dayjs();
+    const diffDays = targetDate.diff(todayDate, "day");
+
+    return diffDays > 0 ? diffDays + 1 : 0;
+  };
+
   if (tasks === null) return <></>;
 
   if (isDoneDisplay == "done") {
@@ -142,6 +153,8 @@ const Tasks = (props) => {
               >
                 {task.title}
                 <br />
+                期日：{task.limit ? task.limit.slice(0, 10) : "未登録"}
+                <br />
                 {task.done ? "完了" : "未完了"}
               </Link>
             </li>
@@ -156,18 +169,28 @@ const Tasks = (props) => {
         .filter((task) => {
           return task.done === false;
         })
-        .map((task, key) => (
-          <li key={key} className="task-item">
-            <Link
-              to={`/lists/${selectListId}/tasks/${task.id}`}
-              className="task-item-link"
-            >
-              {task.title}
-              <br />
-              {task.done ? "完了" : "未完了"}
-            </Link>
-          </li>
-        ))}
+        .map((task, key) => {
+          return (
+            <li key={key} className="task-item">
+              <Link
+                to={`/lists/${selectListId}/tasks/${task.id}`}
+                className="task-item-link"
+              >
+                {task.title}
+                <br />
+                期日：{task.limit ? task.limit.slice(0, 10) : "未登録"}
+                {task.limit && (
+                  <>
+                    <br />
+                    期日まであと{getLimitDaysFromToday(task.limit)}日
+                  </>
+                )}
+                <br />
+                {task.done ? "完了" : "未完了"}
+              </Link>
+            </li>
+          );
+        })}
     </ul>
   );
 };
