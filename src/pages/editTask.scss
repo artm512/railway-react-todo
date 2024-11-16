@@ -1,8 +1,10 @@
 @charset "utf-8";
+@use "./../style/utils";
 
 .edit-task {
-  width: 1000px;
-  margin: 0 auto;
+  margin: 50px auto;
+  padding: 40px;
+  max-width: 1000px;
 }
 
 .edit-task-form {
@@ -34,4 +36,14 @@
 
 .error-message {
   color: #ff3333;
+}
+
+@include utils.breakPoint("tablet") {
+  .edit-task-title,
+  .edit-task-detail {
+    width: 100%;
+  }
+}
+
+@include utils.breakPoint("sp") {
 }

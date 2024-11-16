@@ -1,7 +1,10 @@
+@use "./../style/utils";
+
 .taskList {
   margin: 50px auto;
+  padding: 40px;
   list-style: none;
-  width: 1000px;
+  max-width: 1000px;
 }
 
 .list-header {
@@ -14,6 +17,7 @@
 }
 
 .list-tab {
+  margin-top: 10px;
   list-style: none;
   display: flex;
   overflow-x: auto;
@@ -47,9 +51,9 @@
 .task-item {
   list-style-type: none;
   // height: 70px;
-  width: calc(100% - 25px);
+  // width: calc(100% - 25px);
   background-color: #f5f5f5;
-  padding-left: 25px;
+  // padding-left: 25px;
   font-size: large;
   border: solid 1px #ffffff;
 }
@@ -60,6 +64,12 @@
   height: 100%;
   text-decoration: none;
   color: #000000;
+  padding: 25px;
+  box-sizing: border-box;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .error-message {
@@ -73,4 +83,26 @@
 
 .display-select {
   width: 100%;
+}
+
+@include utils.breakPoint("tablet") {
+  .list-header {
+    flex-direction: column;
+  }
+  .list-tab {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+}
+
+@include utils.breakPoint("sp") {
+  .list-menu {
+    text-align: left;
+  }
+  .tasks-header {
+    flex-direction: column;
+  }
+  .display-select-wrapper {
+    margin: 10px auto 20px 0;
+  }
 }

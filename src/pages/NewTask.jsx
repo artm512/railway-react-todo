@@ -104,6 +104,7 @@ export const NewTask = () => {
             className="new-task-limit"
           />
           <br />
+          <br />
           <button
             type="button"
             className="new-task-button"

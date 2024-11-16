@@ -1,8 +1,10 @@
 @charset "utf-8";
+@use "./../style/utils";
 
 .new-task {
-  width: 1000px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 40px;
 }
 
 .new-task-form {
@@ -30,4 +32,15 @@
 
 .error-message {
   color: #ff3333;
+}
+
+@include utils.breakPoint("tablet") {
+  .new-task-select-list,
+  .new-task-title,
+  .new-task-detail {
+    width: 100%;
+  }
+}
+
+@include utils.breakPoint("sp") {
 }
