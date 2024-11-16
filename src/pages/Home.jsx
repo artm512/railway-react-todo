@@ -92,6 +92,13 @@ export const Home = () => {
                   key={key}
                   className={`list-tab-item ${isActive ? "active" : ""}`}
                   onClick={() => handleSelectList(list.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      handleSelectList(list.id);
+                    }
+                  }}
+                  role="button"
+                  tabIndex="0"
                 >
                   {list.title}
                 </li>
